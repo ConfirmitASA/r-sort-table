@@ -1,6 +1,6 @@
 {
   "name": "r-sort-table",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Class that allows sorting a table that has its data stripped",
   "main": "./src/main.js",
   "repository": {
@@ -14,7 +14,7 @@
     "clean": "rimraf dist build",
     "lint": "eslint src",
     "docs": "node_modules/.bin/jsdoc --configure jsdoc.conf --verbose",
-    "docs-commit": "git subtree push --prefix docs/r-sort-table origin gh-pages",
+    "docs-commit": "git subtree push --prefix docs/r-sort-table/1.0.0 origin gh-pages",
     "test": "karma start --single-run --no-auto-watch karma.config.js",
     "report-coverage": "codecov -f coverage/lcov.info"
   },

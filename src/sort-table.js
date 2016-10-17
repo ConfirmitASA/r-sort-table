@@ -87,8 +87,10 @@ class SortTable {
   static listenForSort(delegatedTarget, columns, sortOrder){
     delegatedTarget.addEventListener('click',e=>{
       // if it's a table cell, is in columns array and is sortable
-      if((e.target.tagName == 'TD' || e.target.tagName == 'TH') && columns.filter(col=>col.sortable).map(function(col){return col.column;}).indexOf(e.target)>-1){
-        sortOrder.replace({column:e.target.cellIndex, direction: e.target.classList.contains('asc')?'desc':'asc'});
+      let mainCols = columns.filter(col=>col.sortable).map(function(col){return col.cell;}), refCols = columns.filter(col=>col.sortable).map(function(col){return col.refCell;})
+      let columnIndex = mainCols.indexOf(e.target)!=-1?mainCols.indexOf(e.target):refCols.indexOf(e.target);
+      if((e.target.tagName == 'TD' || e.target.tagName == 'TH') && columnIndex>-1){
+        sortOrder.replace({column:columnIndex, direction: e.target.classList.contains('asc')?'desc':'asc'});
       }
     })
   }
