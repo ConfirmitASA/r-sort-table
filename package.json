@@ -16,7 +16,7 @@
     "docs": "node_modules/.bin/jsdoc --configure jsdoc.conf --verbose",
     "docs-commit": "git subtree push --prefix docs/r-sort-table/1.0.0 origin gh-pages",
     "test": "karma start --single-run --no-auto-watch karma.config.js",
-    "report-coverage": "codecov -f coverage/lcov.info",
+    "report-coverage": "codecov -f coverage/lcov.info"
   },
   "keywords": [],
   "author": "ConfirmitASA",
