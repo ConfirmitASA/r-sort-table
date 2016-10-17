@@ -1,6 +1,6 @@
 {
   "name": "r-sort-table",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Class that allows sorting a table that has its data stripped",
   "main": "./src/main.js",
   "repository": {
