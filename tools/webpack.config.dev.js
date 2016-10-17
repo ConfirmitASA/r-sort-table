@@ -7,7 +7,7 @@ const AUTOPREFIXER_BROWSERS = [
   'Android >= 4',
   'Chrome >= 32',
   'Firefox >= 28',
-  'Explorer >= 9',
+  'Explorer >= 10',
   'iOS >= 7',
   'Opera >= 12',
   'Safari >= 7.1'
@@ -40,7 +40,7 @@ config.postcss =  function (webpack) {
     })
   ];
 };
-config.watch=true;
+//config.watch=true;
 
 
 module.exports = config;

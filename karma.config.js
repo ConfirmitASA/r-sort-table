@@ -1,4 +1,7 @@
 var path = require('path');
+var webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = function (config) {
   config.set({
@@ -56,6 +59,13 @@ module.exports = function (config) {
               cacheDirectory: true,
             },
           },
+          {
+            test:   /\.css$/,
+            include: /src/,
+            //exclude: /node_modules/,
+            loader:  "css!postcss"
+          }
+
         ],
         loaders: [
           {
@@ -67,6 +77,7 @@ module.exports = function (config) {
               cacheDirectory: true,
             },
           },
+
         ],
       },
     },

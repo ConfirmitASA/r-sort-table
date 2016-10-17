@@ -1,6 +1,6 @@
 {
   "name": "r-sort-table",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Class that allows sorting a table that has its data stripped",
   "main": "./src/main.js",
   "repository": {
@@ -16,7 +16,7 @@
     "docs": "node_modules/.bin/jsdoc --configure jsdoc.conf --verbose",
     "docs-commit": "git subtree push --prefix docs/r-sort-table/1.0.0 origin gh-pages",
     "test": "karma start --single-run --no-auto-watch karma.config.js",
-    "report-coverage": "codecov -f coverage/lcov.info"
+    "report-coverage": "codecov -f coverage/lcov.info",
   },
   "keywords": [],
   "author": "ConfirmitASA",
@@ -57,6 +57,7 @@
     "postcss-import": "^8.1.2",
     "postcss-inline-svg": "github:trysound/postcss-inline-svg",
     "postcss-loader": "^0.9.1",
+    "r-visual-fixture-test": "github:confirmitasa/r-visual-fixture-test",
     "rimraf": "^2.5.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1"

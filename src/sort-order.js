@@ -21,7 +21,6 @@ class SortOrder {
     }
     this.sort = ()=>{
       if(sortCallback && typeof sortCallback === 'function'){
-        console.log('sort callback:'+sortCallback);
         sortCallback.call(sortCallbackScope,this)
       }
     };

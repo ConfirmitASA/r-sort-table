@@ -1,0 +1,22 @@
+:root{
+  --primary-text-color:#3F454C;
+  --icon-arrow-up:url(data:image/svg+xml,%3Csvg%20fill%3D%22%2334393f%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20width%3D%2220%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M4%2012l1.41%201.41L11%207.83V20h2V7.83l5.58%205.59L20%2012l-8-8-8%208z%22/%3E%3C/svg%3E);
+}
+table>thead td.sortable:not(.hierarchy-search-visible){
+  cursor:pointer;
+  &.sorted.asc:after{
+    content: var(--icon-arrow-up);
+    padding-left:8px;
+  }
+  &.sorted.desc:after{
+    content: var(--icon-arrow-up);
+    transform:rotate(180deg);
+    padding-right:8px;
+  }
+  &:after{
+    display:inline-block;
+    bottom: -3px;
+    position: relative;
+    color: var(--primary-text-color,#3F454C);
+  }
+}

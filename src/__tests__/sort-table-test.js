@@ -192,8 +192,22 @@ describe('SortTable', () => {
       let st = new SortTable({source:$j('#confirmit_agg_table')[0], defaultSorting:[{column:0, direction:'asc'},{column:1, direction:'desc'}], data: data, multidimensional:true});
       expect(st.data).toEqual([[[11, 14, 40, 41], [10, 16, 15, 5], [10, 20, 30, 40], [10, 21, 22, 12]],[[11, 14, 40, 41], [10, 16, 15, 5], [10, 20, 30, 40], [10, 21, 22, 12]]]);
       st.sortOrder.replace({column:0, direction:'desc'});
-      console.log(st.sortOrder);
-      console.log(JSON.stringify(st.data),JSON.stringify(data));
+    });
+
+  });
+
+  describe('event triggering on a column when clicked and necessary classes being appended',()=>{
+    it('should sort on defaultSorting on declaration on two columns multidimensional arrays',()=>{
+      let data = [[[10,20,30,40],[10,21,22,12],[10,16,15,5],[11,14,40,41]],[[10,20,30,40],[10,21,22,12],[10,16,15,5],[11,14,40,41]]];
+      let st = new SortTable({source:$j('#confirmit_agg_table')[0], data: data, multidimensional:true});
+      pending('jquery click clicks two different columns for some weird reason triggering two events, the latter having undefined data. This test to be manual then.');
+      var spyEvent = spyOnEvent('thead', 'click');
+      $j('.sortable:nth-child(2)').click();
+      expect('click').toHaveBeenTriggeredOn('thead');
+      expect(spyEvent).toHaveBeenTriggered();
+      expect($j('.sortable:nth-child(2)')).toBeMatchedBy('.sorted');
+      expect($j('.sortable:nth-child(2)')).toBeMatchedBy('.asc');
+      expect(st.data).toEqual([[[10,21,22,12],[10,20,30,40],[10,16,15,5],[11,14,40,41]],[[10,21,22,12],[10,20,30,40],[10,16,15,5],[11,14,40,41]]]);
     });
 
   });

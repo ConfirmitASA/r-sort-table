@@ -1,11 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  <script src=""></script>
-</head>
-<body>
+  <meta charset="UTF-8">
+  <title>Visual test</title>
+  <script src="../../node_modules/webcomponents.js/src/HTMLImports/HTMLImports.js"></script>
+  <script src="../../node_modules/r-visual-fixture-test/src/visual-fixture-test.js"></script>
 
-</body>
+  <script src="../../dist/r-sort-table.bundle.js"></script>
+  <link rel="stylesheet" href="../../dist/r-sort-table.css">
+
+
+  <script>
+    testFixture('table-nested-headers',function(){
+      var tableTest = new Reportal.SortTable({
+        source: document.querySelector('table'),
+        data: [['foo','bar']]
+      });
+    });
+  </script>
+
+  <link rel="import" href="../__tests__/fixtures/table-nested-headers.html">
+
+</head>
+<body></body>
 </html>

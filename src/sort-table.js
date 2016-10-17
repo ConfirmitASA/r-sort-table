@@ -8,28 +8,29 @@ import SortOrder from "./sort-order";
  */
 
 /**
- * @class SortTable
+ * Makes a table sortable, gives API for sorting. It sorts `data` array, but doesn't move rows in the `source` table, because of differences in implementation
+ *
+ * @param {Object} options - options passed to configure the Sorting
+ * @param {HTMLTableElement} options.source - source table sorting will be applied to
+ * @param {HTMLTableElement} [options.refSource] - the floating header if any, will reflect and trigger sorting on header when scrolled.
+ * @param {Number} [options.defaultHeaderRow=-1] - index of the row in `thead` (incremented from 0) that will have sorting enabled for columns. If `-1` then last row.
+ * @param {Array} [options.included] - Array of column indices (incremented from 0) that will have sorting enabled. If not specified, all columns will be sortable. Optionally `excluded` can be specified instead as a shorthand to pass only indices of columns to be excluded from sorting, assumning that others will be made sortable. It's important to count the column index in the defaultHeaderRow
+ * @param {Array} [options.excluded] - Array of column indices (incremented from 0) that will be excluded from sorting. Can be used as a shorthand instead of `included`.
+ * @param {Object} [options.defaultSorting] - an array of objects that specify default sorting
+ * @param {Number} options.defaultSorting.column - column index
+ * @param {String} options.defaultSorting.direction - sort direction (`asc`|`desc`)
+ * @param {Array} options.data - data with information for rows to be sorted
+ * @param {Boolean} [options.multidimensional=false] - if `data` is single-dimensional (contains rows with data to be sorted as immediate array items: `data [rowItem...]`), then it is `false`. If it has blocks of data as items (each block containing an array of rows to be sorted: data [block [rowItem...]...]), then set it to `true`. Currently it supports only a two-level aggregation max (data->block->rowItem).
  * @prop {HTMLTableElement} source - source table
  * @prop {Array} data - data array to be sorted
  * @prop {Boolean} multidimensional - if `data` is single-dimensional (contains rows with data to be sorted as immediate array items: `data [rowItem...]`), then it is `false`. If it has blocks of data as items (each block containing an array of rows to be sorted: data [block [rowItem...]...]), then set it to `true`. Currently it supports only a two-level aggregation max (data->block->rowItem).
  * @prop {SortOrder} sortOrder - instance of {@link SortOrder}
  * @prop {TableColumns} columns - instance of {@link TableColumns} with a modified prototype (added `sortable:true` and `.sortable` to sortable columns)
+ * @class SortTable
  * */
 class SortTable {
   /**
-   * Makes a table sortable, gives API for sorting. It sorts `data` array, but doesn't move rows in the `source` table, because of differences in implementation
-   * @param {Object} options - options passed to configure the Sorting
-   * @param {Boolean} options.enabled=false - enables sorting on a header of a table
-   * @param {HTMLTableElement} options.source - source table sorting will be applied to
-   * @param {HTMLTableElement} [options.refSource] - the floating header if any, will reflect and trigger sorting on header when scrolled.
-   * @param {Number} [options.defaultHeaderRow=-1] - index of the row in `thead` (incremented from 0) that will have sorting enabled for columns. If `-1` then last row.
-   * @param {Array} [options.included] - Array of column indices (incremented from 0) that will have sorting enabled. If not specified, all columns will be sortable. Optionally `excluded` can be specified instead as a shorthand to pass only indices of columns to be excluded from sorting, assumning that others will be made sortable. It's important to count the column index in the defaultHeaderRow
-   * @param {Array} [options.excluded] - Array of column indices (incremented from 0) that will be excluded from sorting. Can be used as a shorthand instead of `included`.
-   * @param {Object} [options.defaultSorting] - an array of objects that specify default sorting
-   * @param {Number} options.defaultSorting.column - column index
-   * @param {String} options.defaultSorting.direction - sort direction (`asc`|`desc`)
-   * @param {Array} options.data - data with information for rows to be sorted
-   * @param {Boolean} [options.multidimensional=false] - if `data` is single-dimensional (contains rows with data to be sorted as immediate array items: `data [rowItem...]`), then it is `false`. If it has blocks of data as items (each block containing an array of rows to be sorted: data [block [rowItem...]...]), then set it to `true`. Currently it supports only a two-level aggregation max (data->block->rowItem).
+   *
    *
    *  */
 
@@ -108,7 +109,9 @@ class SortTable {
       if(!this.multidimensional){
         SortTable.sortDimension(this.data, columns, so);
       } else { // if array has nested array blocks
-        this.data.forEach(dimension=>SortTable.sortDimension(dimension, this.columns, so));
+        this.data.forEach(dimension=>{
+          SortTable.sortDimension(dimension, this.columns, so);
+        });
       }
       columns[so[0].column].cell.dispatchEvent(this._sortEvent);
     }
