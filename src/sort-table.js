@@ -128,8 +128,6 @@ class SortTable {
     let getIndex = (i)=>{return columns[sortOrder[i].column].index};
     let getDirection=(i)=>{return sortOrder[i].direction === 'desc' ? -1 : 1};
     data.sort((a, b)=>{ // sort rows
-      if(typeof a=='object' && typeof a.data != undefined){a=a.data}
-      if(typeof b=='object' && typeof b.data != undefined){b=b.data}
       if(sortOrder.length==1){ //sort one column only
         return SortTable.sorter( a[getIndex(0)], b[getIndex(0)], getDirection(0) )
       } else { //sort against two columns
@@ -149,6 +147,8 @@ class SortTable {
       let tempEl2 = document.createElement('span'); tempEl2.innerHTML = b;
       b=tempEl2.textContent.trim();
     }
+    if(typeof a=='object' && typeof a.data != undefined){a=a.data}
+    if(typeof b=='object' && typeof b.data != undefined){b=b.data}
     if(!isNaN(a) && !isNaN(b)){ //they might be numbers or null
       if(a===null){return 1} else if (b===null){return -1}
       return a <  b ? lesser :  a >  b ? -lesser : 0;
