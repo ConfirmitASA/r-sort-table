@@ -25,7 +25,7 @@ import SortOrder from "./sort-order";
  * @param {Boolean} [options.multidimensional=false] - if `data` is single-dimensional (contains rows with data to be sorted as immediate array items: `data [rowItem...]`), then it is `false`. If it has blocks of data as items (each block containing an array of rows to be sorted: data [block [rowItem...]...]), then set it to `true`. Currently it supports only a two-level aggregation max (data->block->rowItem).
  * @prop {HTMLTableElement} source - source table
  * @prop {Array} data - data array to be sorted
- * @prop {Boolean} multidimensional - if `data` is single-dimensional (contains rows with data to be sorted as immediate array items: `data [rowItem...]`), then it is `false`. If it has blocks of data as items (each block containing an array of rows to be sorted: data [block [rowItem...]...]), then set it to `true`. Currently it supports only a two-level aggregation max (data->block->rowItem).
+ * @prop {Boolean} multidimensional - if `data` is mono-dimensional (contains rows with data to be sorted as immediate array items: `data [rowItem...]`), then it is `false`. If it has blocks of data as items (each block containing an array of rows to be sorted: data [block [rowItem...]...]), then set it to `true`. Currently it supports only a two-level aggregation max (data->block->rowItem).
  * @prop {SortOrder} sortOrder - instance of {@link SortOrder}
  * @prop {TableColumns} columns - instance of {@link TableColumns} with a modified prototype (added `sortable:true` and `.sortable` to sortable columns)
  * @class SortTable
@@ -40,7 +40,6 @@ class SortTable {
     let {source,refSource,defaultHeaderRow=-1,included,excluded,defaultSorting=[],data=[],multidimensional=false}=options;
     this._sortEvent = ReportalBase.newEvent('reportal-table-sort');
 
-    //if(enabled){
       if(source){
         this.source=source;
       } else {
@@ -55,9 +54,7 @@ class SortTable {
       this.columns = sortableColumns;
       this.sortOrder = {sortOrder:[]} = new SortOrder({columns:sortableColumns, sortCallback:this.sort, sortCallbackScope:this, defaultSorting});
       [source,refSource].forEach(src=>{if(src){SortTable.listenForSort(TableColumns.getHeader(src),sortableColumns, this.sortOrder)}});// set up listeners for headers
-    //}
 
-    //SortTable.sort(); //initial sorting if any
   }
 
 
@@ -90,10 +87,14 @@ class SortTable {
   static listenForSort(delegatedTarget, columns, sortOrder){
     delegatedTarget.addEventListener('click',e=>{
       // if it's a table cell, is in columns array and is sortable
-      let mainCols = columns.filter(col=>col.sortable).map(function(col){return col.cell;}), refCols = columns.filter(col=>col.sortable).map(function(col){return col.refCell;})
-      let columnIndex = mainCols.indexOf(e.target)!=-1?mainCols.indexOf(e.target):refCols.indexOf(e.target);
-      if((e.target.tagName == 'TD' || e.target.tagName == 'TH') && columnIndex>-1){
-        sortOrder.replace({column:columnIndex, direction: e.target.classList.contains('asc')?'desc':'asc'});
+      let clickedColumn;
+      for(let i=0;i<columns.length;i++){
+        if(e.target==columns[i].cell || e.target==columns[i].refCell){
+          clickedColumn= columns[i]; break;
+        }
+      }
+      if((e.target.tagName == 'TD' || e.target.tagName == 'TH') && clickedColumn.sortable){
+        sortOrder.replace({column:clickedColumn.index, direction: e.target.classList.contains('asc')?'desc':'asc'});
       }
     })
   }
