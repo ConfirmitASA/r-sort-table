@@ -8,7 +8,9 @@ import SortOrder from "./sort-order";
  */
 
 /**
- * Makes a table sortable, gives API for sorting. It sorts `data` array, but doesn't move rows in the `source` table, because of differences in implementation
+ * Makes a table sortable, gives API for sorting. It sorts `data` array, but doesn't move rows in the `source` table, because of differences in implementation.
+ *
+ * > Note: It's important that every Array item that is going to be sortable was either a `String`, a `Number`, a `null`, or an `Object` that contained `data` property (which was of the previously named types)
  *
  * @param {Object} options - options passed to configure the Sorting
  * @param {HTMLTableElement} options.source - source table sorting will be applied to
@@ -123,9 +125,11 @@ class SortTable {
    * @param {SortOrder} sortOrder - instance of {@link SortOrder}
    * */
   static sortDimension(data,columns,sortOrder){
-    var getIndex = (i)=>{return columns[sortOrder[i].column].index};
-    var getDirection=(i)=>{return sortOrder[i].direction === 'desc' ? -1 : 1};
+    let getIndex = (i)=>{return columns[sortOrder[i].column].index};
+    let getDirection=(i)=>{return sortOrder[i].direction === 'desc' ? -1 : 1};
     data.sort((a, b)=>{ // sort rows
+      if(typeof a=='object' && typeof a.data != undefined){a=a.data}
+      if(typeof b=='object' && typeof b.data != undefined){b=b.data}
       if(sortOrder.length==1){ //sort one column only
         return SortTable.sorter( a[getIndex(0)], b[getIndex(0)], getDirection(0) )
       } else { //sort against two columns
