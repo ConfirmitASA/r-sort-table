@@ -127,6 +127,7 @@ class SortTable {
   static sortDimension(data,columns,sortOrder){
     let getIndex = (i)=>{return columns[sortOrder[i].column].index};
     let getDirection=(i)=>{return sortOrder[i].direction === 'desc' ? -1 : 1};
+    // TODO: add possibility to sort the data that was stripped by column.
     data.sort((a, b)=>{ // sort rows
       if(sortOrder.length==1){ //sort one column only
         return SortTable.sorter( a[getIndex(0)], b[getIndex(0)], getDirection(0) )
