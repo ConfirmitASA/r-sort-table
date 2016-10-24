@@ -49,9 +49,9 @@ class SortTable {
       this.multidimensional = multidimensional;
 
       //let tableColumns= new TableColumns({source, refSource, defaultHeaderRow});
-      // setup sort order and do initial default sorting
       let sortableColumns=SortTable.defineSortableColumns(new TableColumns({source, refSource, defaultHeaderRow}), included, excluded);
       this.columns = sortableColumns;
+      // setup sort order and do initial default sorting
       this.sortOrder = {sortOrder:[]} = new SortOrder({columns:sortableColumns, sortCallback:this.sort, sortCallbackScope:this, defaultSorting});
       [source,refSource].forEach(src=>{if(src){SortTable.listenForSort(TableColumns.getHeader(src),sortableColumns, this.sortOrder)}});// set up listeners for headers
 
@@ -94,7 +94,7 @@ class SortTable {
         }
       }
       if((e.target.tagName == 'TD' || e.target.tagName == 'TH') && clickedColumn.sortable){
-        sortOrder.replace({column:clickedColumn.index, direction: e.target.classList.contains('asc')?'desc':'asc'});
+        sortOrder.replace({column:columns.indexOf(clickedColumn), direction: e.target.classList.contains('asc')?'desc':'asc'});
       }
     })
   }

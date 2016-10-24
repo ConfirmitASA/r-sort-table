@@ -11,7 +11,7 @@ class SortOrder {
    * @return {Array}
    * */
   constructor(options){
-    let {columns, sortCallback,  defaultSorting=[],sortCallbackScope=this} = options;
+    let {columns, sortCallback, defaultSorting=[], sortCallbackScope=this} = options;
 
     this.sortOrder = [];
     if(typeof columns != undefined && columns != null){
