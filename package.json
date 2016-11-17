@@ -63,6 +63,7 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "r-reporal-base": "github:confirmitasa/r-reportal-base"
+    "r-reporal-base": "github:confirmitasa/r-reportal-base",
+    "r-table-columns": "github:confirmitasa/r-table-columns"
   }
 }

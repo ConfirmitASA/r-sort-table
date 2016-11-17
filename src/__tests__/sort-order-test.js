@@ -1,5 +1,5 @@
 import SortOrder from '../sort-order';
-import TableColumns from '../table-columns';
+import TableColumns from 'r-table-columns';
 
 
 describe('SortOrder', () => {
