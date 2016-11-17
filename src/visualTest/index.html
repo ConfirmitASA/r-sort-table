@@ -17,9 +17,29 @@
         data: [['foo','bar']]
       });
     });
+
+    testFixture('table-crazy-nested-headers',function(){
+      var tableTest = new Reportal.SortTable({
+        source: document.querySelector('table'),
+        data: [['foo','bar']],
+        defaultHeaderRow:0
+      });
+    });
+
+    testFixture('table-nested-rowheaders',function(){
+      var tableTest = new Reportal.SortTable({
+        source: document.querySelector('table'),
+        data: [['foo','bar']],
+        defaultHeaderRow:-1,
+        multidimentional:true
+      });
+    });
   </script>
 
   <link rel="import" href="../__tests__/fixtures/table-nested-headers.html">
+  <link rel="import" href="../__tests__/fixtures/table-crazy-nested-headers.html">
+  <link rel="import" href="../__tests__/fixtures/table-nested-rowheaders.html">
+
 
 </head>
 <body></body>
