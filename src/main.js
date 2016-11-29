@@ -4,7 +4,7 @@
 var styles = require('./sort-table-styles.css');
 
 import TableColumns from "./table-columns";
-import ReportalBase from "r-reporal-base/src/reportal-base";
+import ReportalBase from "r-reportal-base/src/reportal-base";
 import SortOrder from "./sort-order";
 import SortTable from "./sort-table";
 
