@@ -1,4 +1,4 @@
-import ReportalBase from "r-reporal-base/src/reportal-base";
+import ReportalBase from "r-reportal-base";
 import TableColumns from "./table-columns";
 import SortOrder from "./sort-order";
 
