@@ -149,8 +149,8 @@ class SortTable {
       let tempEl2 = document.createElement('span'); tempEl2.innerHTML = b;
       b=tempEl2.textContent.trim();
     }
-    if(typeof a=='object' && typeof a.data != undefined){a=a.data}
-    if(typeof b=='object' && typeof b.data != undefined){b=b.data}
+    if(a != null && typeof a=='object' && typeof a.data != undefined){a=a.data}
+    if(b != null && typeof b=='object' && typeof b.data != undefined){b=b.data}
     if(!isNaN(a) && !isNaN(b)){ //they might be numbers or null
       if(a===null){return 1} else if (b===null){return -1}
       return a <  b ? lesser :  a >  b ? -lesser : 0;
